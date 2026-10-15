@@ -1,0 +1,150 @@
+
+@model IEnumerable<TechMoveGLMS.Web.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div class="d-flex flex-column flex-md-row
+            justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <div class="text-uppercase text-success fw-bold small mb-2">
+            Client management
+        </div>
+        <h1>Clients</h1>
+        <p class="text-muted mb-0">
+            Manage customer contact details and their logistics contracts.
+        </p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-primary">
+        + Add Client
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] is string success)
+{
+    <div class="alert alert-success" role="alert">@success</div>
+}
+
+@if (TempData["ErrorMessage"] is string error)
+{
+    <div class="alert alert-danger" role="alert">@error</div>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Total registered clients</div>
+                <div class="display-6 fw-bold mt-2">@Model.Count()</div>
+                <div class="small text-muted">Client records in the system</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <label for="clientSearch" class="form-label">Search clients</label>
+        <input id="clientSearch"
+               class="form-control"
+               type="search"
+               placeholder="Search by name, email, phone or region..." />
+        <div class="form-text">
+            Search updates the table as you type.
+        </div>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <h2>No clients yet</h2>
+            <p class="text-muted">
+                Add your first client to start managing logistics contracts.
+            </p>
+            <a asp-action="Create" class="btn btn-primary">Add First Client</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped" id="clientsTable">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Region</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var client in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="fw-bold">@client.Name</div>
+                        <div class="text-muted small">Client #@client.Id</div>
+                    </td>
+                    <td>@client.Email</td>
+                    <td>@client.ContactNumber</td>
+                    <td>@client.Region</td>
+                    <td class="text-end text-nowrap">
+                        <a asp-action="Details"
+                           asp-route-id="@client.Id"
+                           class="btn btn-sm btn-outline-secondary">View</a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@client.Id"
+                           class="btn btn-sm btn-outline-secondary">Edit</a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@client.Id"
+                           class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <div id="noSearchResults"
+             class="p-4 text-center text-muted"
+             hidden>
+            No clients match your search.
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        (() => {
+            const search = document.getElementById("clientSearch");
+            const table = document.getElementById("clientsTable");
+            const noResults = document.getElementById("noSearchResults");
+
+            if (!search || !table || !noResults) return;
+
+            const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+            search.addEventListener("input", () => {
+                const query = search.value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                rows.forEach(row => {
+                    const matches = row.textContent
+                        .toLowerCase()
+                        .includes(query);
+
+                    row.hidden = !matches;
+                    if (matches) visibleCount++;
+                });
+
+                noResults.hidden = visibleCount !== 0;
+                table.hidden = visibleCount === 0;
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,134 @@
+
+@model TechMoveGLMS.Web.Models.Contract
+@using TechMoveGLMS.Web.Models
+
+@{
+    ViewData["Title"] = "Create Contract";
+    var clients = ViewBag.Clients as IEnumerable<Client>
+        ?? Enumerable.Empty<Client>();
+
+    var statuses = new[] { "Draft", "Active", "Expired", "On Hold" };
+}
+
+<div class="container py-4">
+    <div class="mb-4">
+        <h1>Create Contract</h1>
+        <p class="text-muted">
+            Create a logistics contract and associate it with a client.
+        </p>
+    </div>
+
+    @if (!clients.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            <strong>No clients available.</strong>
+            You must create a client before creating a contract.
+            <a asp-controller="Clients"
+               asp-action="Create"
+               class="alert-link">Add a client</a>.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3"
+                         role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ClientId" class="form-label">
+                            Client <span class="text-danger">*</span>
+                        </label>
+
+                        <select asp-for="ClientId" class="form-select">
+                            <option value="">-- Select a client --</option>
+                            @foreach (var client in clients)
+                            {
+                                <option value="@client.Id">
+                                    @client.Name (@client.Email)
+                                </option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="ClientId"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="StartDate" class="form-label">
+                                Start Date <span class="text-danger">*</span>
+                            </label>
+
+                            <input asp-for="StartDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="StartDate"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EndDate" class="form-label">
+                                End Date <span class="text-danger">*</span>
+                            </label>
+
+                            <input asp-for="EndDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="EndDate"
+                                  class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label">
+                            Contract Status
+                        </label>
+
+                        <select asp-for="Status" class="form-select">
+                            @foreach (var status in statuses)
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="Status"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ServiceLevel" class="form-label">
+                            Service Level <span class="text-danger">*</span>
+                        </label>
+
+                        <input asp-for="ServiceLevel"
+                               class="form-control"
+                               maxlength="100"
+                               placeholder="e.g. Standard, Express, Premium" />
+
+                        <span asp-validation-for="ServiceLevel"
+                              class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Save Contract
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

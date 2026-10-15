@@ -1,0 +1,70 @@
+
+@model TechMoveGLMS.Web.Models.Client
+
+@{
+    ViewData["Title"] = "Delete Client";
+    var hasContracts = Model.Contracts.Any();
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="small">&larr; Back to Clients</a>
+    <div class="text-uppercase text-success fw-bold small mt-3 mb-2">
+        Client management
+    </div>
+    <h1>Delete Client</h1>
+    <p class="text-muted">Review this client before confirming deletion.</p>
+</div>
+
+<div class="card">
+    <div class="card-body p-4">
+        @if (hasContracts)
+        {
+            <div class="alert alert-warning" role="alert">
+                <strong>Deletion is unavailable.</strong>
+                This client has @Model.Contracts.Count contract(s) linked to
+                their account. To protect contract records, remove or reassign
+                those links according to your business rules before deleting
+                the client.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Are you sure?</strong>
+                This action permanently deletes this client record.
+            </div>
+        }
+
+        <dl class="row mt-4">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            <dt class="col-sm-3">Contact Number</dt>
+            <dd class="col-sm-9">@Model.ContactNumber</dd>
+
+            <dt class="col-sm-3">Region</dt>
+            <dd class="col-sm-9">@Model.Region</dd>
+        </dl>
+
+        <div class="d-flex flex-wrap gap-2 mt-4 pt-3 border-top">
+            @if (!hasContracts)
+            {
+                <form asp-action="DeleteConfirmed"
+                      asp-route-id="@Model.Id"
+                      method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        Confirm Delete
+                    </button>
+                </form>
+            }
+
+            <a asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </div>
+</div>

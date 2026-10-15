@@ -1,0 +1,461 @@
+
+/* TechMove Logistics dashboard */
+
+.tm-welcome {
+    position: relative;
+    display: flex;
+    min-height: 275px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    padding: 38px 44px;
+    border-radius: 18px;
+    background: linear-gradient(115deg, #142b45 0%, #203e5d 68%, #18564f 100%);
+    color: #fff;
+}
+
+.tm-welcome-content {
+    position: relative;
+    z-index: 2;
+    max-width: 610px;
+}
+
+.tm-welcome .tm-eyebrow {
+    margin-bottom: 12px;
+    color: #78e0b5;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.tm-welcome h1 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    letter-spacing: -1px;
+}
+
+.tm-welcome p {
+    max-width: 520px;
+    margin: 12px 0 0;
+    color: #d5e1ed;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.tm-welcome-primary {
+    background: #18a875;
+    color: #fff;
+}
+
+.tm-welcome-primary:hover {
+    background: #12835b;
+    color: #fff;
+}
+
+.tm-welcome-secondary {
+    border: 1px solid rgba(255,255,255,.4);
+    background: rgba(255,255,255,.07);
+    color: #fff;
+}
+
+.tm-welcome-secondary:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+}
+
+.tm-welcome-art {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 39%;
+    height: 100%;
+    overflow: hidden;
+    opacity: .95;
+}
+
+.tm-orbit {
+    position: absolute;
+    width: 245px;
+    height: 245px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+}
+
+.tm-orbit-one {
+    top: -100px;
+    right: -45px;
+}
+
+.tm-orbit-two {
+    top: -48px;
+    right: 7px;
+    width: 145px;
+    height: 145px;
+}
+
+.tm-truck {
+    position: absolute;
+    right: 17%;
+    bottom: 70px;
+    width: 180px;
+    height: 90px;
+    transform: scale(.95);
+}
+
+.tm-truck-box {
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    width: 112px;
+    height: 56px;
+    border: 2px solid rgba(255,255,255,.9);
+    border-radius: 5px;
+    background: #18a875;
+    box-shadow: inset -12px 0 rgba(0,0,0,.08);
+}
+
+.tm-truck-box::after {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    left: 14px;
+    height: 2px;
+    background: rgba(255,255,255,.4);
+    content: "";
+}
+
+.tm-truck-cab {
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+    width: 62px;
+    height: 43px;
+    border: 2px solid rgba(255,255,255,.9);
+    border-radius: 5px 12px 3px 3px;
+    background: #eaf5f4;
+}
+
+.tm-truck-cab::after {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 25px;
+    height: 15px;
+    border-radius: 3px;
+    background: #9ab9c9;
+    content: "";
+}
+
+.tm-truck-wheel {
+    position: absolute;
+    bottom: 9px;
+    width: 25px;
+    height: 25px;
+    border: 6px solid #142b45;
+    border-radius: 50%;
+    background: #dce7ed;
+    box-shadow: 0 0 0 2px rgba(255,255,255,.65);
+}
+
+.tm-wheel-one {
+    left: 25px;
+}
+
+.tm-wheel-two {
+    right: 18px;
+}
+
+.tm-route-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #18a875;
+    box-shadow: 0 0 0 6px rgba(24,168,117,.18);
+}
+
+.tm-dot-one {
+    top: 55px;
+    right: 32%;
+}
+
+.tm-dot-two {
+    top: 115px;
+    right: 12%;
+}
+
+.tm-dot-three {
+    right: 42%;
+    bottom: 36px;
+}
+
+.tm-date-label {
+    color: #718096;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tm-stat-link {
+    display: block;
+    height: 100%;
+    color: inherit;
+}
+
+.tm-stat-link:hover {
+    color: inherit;
+}
+
+.tm-stat-card {
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.tm-stat-link:hover .tm-stat-card {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(20,43,69,.09);
+}
+
+.tm-stat-card .card-body {
+    padding: 23px;
+}
+
+.tm-stat-label {
+    color: #718096;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tm-stat-number {
+    margin-top: 9px;
+    color: #142b45;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.tm-stat-note {
+    margin-top: 8px;
+    color: #8491a1;
+    font-size: 11px;
+}
+
+.tm-stat-icon,
+.tm-action-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.tm-stat-icon {
+    width: 47px;
+    height: 47px;
+}
+
+.tm-icon-green {
+    background: #e3f7ee;
+    color: #16885e;
+}
+
+.tm-icon-blue {
+    background: #e7f0ff;
+    color: #326ac5;
+}
+
+.tm-icon-purple {
+    background: #f0eaff;
+    color: #7954c8;
+}
+
+.tm-icon-orange {
+    background: #fff0df;
+    color: #bc7020;
+}
+
+.tm-panel .card-body {
+    padding: 25px;
+}
+
+.tm-text-link {
+    color: #12835b;
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.tm-dashboard-table {
+    border: 0;
+    border-radius: 0;
+}
+
+.tm-dashboard-table .table thead th {
+    padding: 13px 10px;
+    font-size: 10px;
+}
+
+.tm-dashboard-table .table tbody td {
+    padding: 15px 10px;
+}
+
+.tm-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 9px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.tm-status-active {
+    background: #e3f7ee;
+    color: #16885e;
+}
+
+.tm-status-expired {
+    background: #ffebeb;
+    color: #b8323b;
+}
+
+.tm-status-hold {
+    background: #fff4d7;
+    color: #8b6500;
+}
+
+.tm-status-draft {
+    background: #edf1f6;
+    color: #617184;
+}
+
+.tm-empty-state {
+    padding: 35px 12px;
+    text-align: center;
+}
+
+.tm-empty-symbol {
+    display: inline-flex;
+    width: 55px;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    background: #e7f7ef;
+    color: #16885e;
+    font-size: 25px;
+}
+
+.tm-empty-state h3 {
+    font-size: 17px;
+}
+
+.tm-empty-state p {
+    font-size: 13px;
+}
+
+.tm-quick-actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.tm-quick-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid #edf1f5;
+    color: #25364a;
+}
+
+.tm-quick-action:first-child {
+    padding-top: 0;
+}
+
+.tm-quick-action:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.tm-quick-action:hover {
+    color: #12835b;
+}
+
+.tm-action-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 20px;
+}
+
+.tm-quick-action strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.tm-quick-action small {
+    display: block;
+    margin-top: 4px;
+    color: #8491a1;
+    font-size: 10px;
+}
+
+.tm-action-arrow {
+    color: #8b9aab;
+    font-size: 19px;
+}
+
+@media (max-width: 767.98px) {
+    .tm-welcome {
+        min-height: 280px;
+        padding: 28px 23px;
+    }
+
+    .tm-welcome-art {
+        width: 48%;
+        opacity: .24;
+    }
+
+    .tm-welcome-content {
+        max-width: 100%;
+    }
+
+    .tm-welcome p {
+        max-width: 390px;
+    }
+
+    .tm-stat-card .card-body {
+        padding: 18px;
+    }
+
+    .tm-stat-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 20px;
+    }
+
+    .tm-stat-number {
+        font-size: 29px;
+    }
+
+    .tm-panel .card-body {
+        padding: 19px;
+    }
+}
+
+@media (max-width: 420px) {
+    .tm-welcome-art {
+        display: none;
+    }
+
+    .tm-welcome {
+        min-height: auto;
+    }
+
+    .tm-date-label {
+        font-size: 11px;
+    }
+}

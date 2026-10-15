@@ -1,0 +1,41 @@
+ @model TechMoveGLMS.Web.Models.Contract
+
+@{
+    ViewData["Title"] = "Upload Signed Contract PDF";
+}
+
+<h1>Upload Signed Contract PDF</h1>
+
+<p>Contract ID: @Model.Id</p>
+<p>Service level: @Model.ServiceLevel</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.SignedPdfFileName))
+{
+    <p>A signed PDF is already stored for this contract. Uploading a new one will replace it.</p>
+}
+
+<form asp-action="UploadPdf"
+      asp-route-id="@Model.Id"
+      method="post"
+      enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label for="file" class="form-label">Select PDF (maximum 5 MB)</label>
+        <input type="file"
+               id="file"
+               name="file"
+               class="form-control"
+               accept=".pdf,application/pdf"
+               required />
+        <span class="text-danger">
+            @Html.ValidationMessage("file")
+        </span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Upload PDF</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to Contracts</a>
+</form>

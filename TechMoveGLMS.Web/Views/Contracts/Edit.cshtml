@@ -1,0 +1,91 @@
+
+@model TechMoveGLMS.Web.Models.Contract
+@using TechMoveGLMS.Web.Models
+
+@{
+    ViewData["Title"] = "Edit Contract";
+    var clients = ViewBag.Clients as IEnumerable<Client>
+        ?? Enumerable.Empty<Client>();
+    var statuses = new[] { "Draft", "Active", "Expired", "On Hold" };
+}
+
+<div class="container py-4">
+    <h1>Edit Contract #@Model.Id</h1>
+    <p class="text-muted">Update the contract details below.</p>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="ClientId" class="form-label">Client</label>
+                    <select asp-for="ClientId" class="form-select">
+                        <option value="">-- Select a client --</option>
+                        @foreach (var client in clients)
+                        {
+                            <option value="@client.Id">
+                                @client.Name (@client.Email)
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="ClientId"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="StartDate" class="form-label"></label>
+                        <input asp-for="StartDate" type="date"
+                               class="form-control" />
+                        <span asp-validation-for="StartDate"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EndDate" class="form-label"></label>
+                        <input asp-for="EndDate" type="date"
+                               class="form-control" />
+                        <span asp-validation-for="EndDate"
+                              class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" class="form-select">
+                        @foreach (var status in statuses)
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Status"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="ServiceLevel" class="form-label"></label>
+                    <input asp-for="ServiceLevel" class="form-control"
+                           maxlength="100" />
+                    <span asp-validation-for="ServiceLevel"
+                          class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Save Changes
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

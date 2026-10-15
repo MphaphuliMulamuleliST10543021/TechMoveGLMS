@@ -1,0 +1,290 @@
+﻿
+@model TechMoveGLMS.Web.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="tm-welcome mb-4">
+    <div class="tm-welcome-content">
+        <div class="tm-eyebrow">GLOBAL LOGISTICS MANAGEMENT</div>
+        <h1>Welcome to TechMove</h1>
+        <p>
+            Your central workspace for managing clients, contracts and
+            logistics service requests.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 mt-4">
+            <a asp-controller="Clients"
+               asp-action="Create"
+               class="btn tm-welcome-primary">
+                + Add New Client
+            </a>
+
+            <a asp-controller="Contracts"
+               asp-action="Create"
+               class="btn tm-welcome-secondary">
+                Create Contract
+            </a>
+        </div>
+    </div>
+
+    <div class="tm-welcome-art" aria-hidden="true">
+        <div class="tm-orbit tm-orbit-one"></div>
+        <div class="tm-orbit tm-orbit-two"></div>
+        <div class="tm-truck">
+            <div class="tm-truck-box"></div>
+            <div class="tm-truck-cab"></div>
+            <div class="tm-truck-wheel tm-wheel-one"></div>
+            <div class="tm-truck-wheel tm-wheel-two"></div>
+        </div>
+        <div class="tm-route-dot tm-dot-one"></div>
+        <div class="tm-route-dot tm-dot-two"></div>
+        <div class="tm-route-dot tm-dot-three"></div>
+    </div>
+</section>
+
+<div class="d-flex flex-column flex-md-row
+            justify-content-between align-items-md-center gap-2 mb-3">
+    <div>
+        <h2 class="mb-1">Operations overview</h2>
+        <p class="text-muted mb-0">
+            A snapshot of your logistics management system.
+        </p>
+    </div>
+    <span class="tm-date-label">
+        @DateTime.Today.ToString("dddd, dd MMMM yyyy")
+    </span>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <a asp-controller="Clients"
+           asp-action="Index"
+           class="tm-stat-link">
+            <div class="card tm-stat-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between gap-2">
+                        <div>
+                            <div class="tm-stat-label">Total Clients</div>
+                            <div class="tm-stat-number">@Model.TotalClients</div>
+                            <div class="tm-stat-note">Registered customers</div>
+                        </div>
+                        <div class="tm-stat-icon tm-icon-green">
+                            <span aria-hidden="true">◎</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <a asp-controller="Contracts"
+           asp-action="Index"
+           class="tm-stat-link">
+            <div class="card tm-stat-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between gap-2">
+                        <div>
+                            <div class="tm-stat-label">Total Contracts</div>
+                            <div class="tm-stat-number">@Model.TotalContracts</div>
+                            <div class="tm-stat-note">Client agreements</div>
+                        </div>
+                        <div class="tm-stat-icon tm-icon-blue">
+                            <span aria-hidden="true">▤</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <a asp-controller="Contracts"
+           asp-action="Index"
+           class="tm-stat-link">
+            <div class="card tm-stat-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between gap-2">
+                        <div>
+                            <div class="tm-stat-label">Active Contracts</div>
+                            <div class="tm-stat-number">@Model.ActiveContracts</div>
+                            <div class="tm-stat-note">Currently in date range</div>
+                        </div>
+                        <div class="tm-stat-icon tm-icon-purple">
+                            <span aria-hidden="true">✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <a asp-controller="ServiceRequests"
+           asp-action="Index"
+           class="tm-stat-link">
+            <div class="card tm-stat-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between gap-2">
+                        <div>
+                            <div class="tm-stat-label">Service Requests</div>
+                            <div class="tm-stat-number">@Model.TotalServiceRequests</div>
+                            <div class="tm-stat-note">
+                                @Model.PendingServiceRequests pending
+                            </div>
+                        </div>
+                        <div class="tm-stat-icon tm-icon-orange">
+                            <span aria-hidden="true">↗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card tm-panel h-100">
+            <div class="card-body">
+                <div class="d-flex flex-column flex-sm-row
+                            justify-content-between align-items-sm-center
+                            gap-2 mb-4">
+                    <div>
+                        <h2 class="mb-1">Recent Contracts</h2>
+                        <p class="text-muted small mb-0">
+                            The latest contracts added to the system.
+                        </p>
+                    </div>
+                    <a asp-controller="Contracts"
+                       asp-action="Index"
+                       class="tm-text-link">View all contracts &rarr;</a>
+                </div>
+
+                @if (!Model.RecentContracts.Any())
+                {
+                    <div class="tm-empty-state">
+                        <div class="tm-empty-symbol">▤</div>
+                        <h3>No contracts yet</h3>
+                        <p class="text-muted">
+                            Create a contract after registering a client.
+                        </p>
+                        <a asp-controller="Contracts"
+                           asp-action="Create"
+                           class="btn btn-primary">Create Contract</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive tm-dashboard-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Contract</th>
+                                    <th>Service Level</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var contract in Model.RecentContracts)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold">
+                                            #@contract.Id
+                                        </div>
+                                        <div class="text-muted small">
+                                            @contract.ClientName
+                                        </div>
+                                    </td>
+                                    <td>@contract.ServiceLevel</td>
+                                    <td>
+                                        @contract.EndDate.ToString("dd MMM yyyy")
+                                    </td>
+                                    <td>
+                                        @switch (contract.Status)
+                                        {
+                                            case "Active":
+                                                <span class="tm-status tm-status-active">Active</span>
+                                                break;
+                                            case "Expired":
+                                                <span class="tm-status tm-status-expired">Expired</span>
+                                                break;
+                                            case "On Hold":
+                                                <span class="tm-status tm-status-hold">On Hold</span>
+                                                break;
+                                            default:
+                                                <span class="tm-status tm-status-draft">@contract.Status</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card tm-panel h-100">
+            <div class="card-body">
+                <h2 class="mb-1">Quick Actions</h2>
+                <p class="text-muted small mb-4">
+                    Common tasks at your fingertips.
+                </p>
+
+                <div class="tm-quick-actions">
+                    <a asp-controller="Clients"
+                       asp-action="Create"
+                       class="tm-quick-action">
+                        <span class="tm-action-icon tm-icon-green">+</span>
+                        <span class="flex-grow-1">
+                            <strong>Add a Client</strong>
+                            <small>Register a new customer</small>
+                        </span>
+                        <span class="tm-action-arrow">&rarr;</span>
+                    </a>
+
+                    <a asp-controller="Clients"
+                       asp-action="Index"
+                       class="tm-quick-action">
+                        <span class="tm-action-icon tm-icon-blue">◎</span>
+                        <span class="flex-grow-1">
+                            <strong>Manage Clients</strong>
+                            <small>View and update client records</small>
+                        </span>
+                        <span class="tm-action-arrow">&rarr;</span>
+                    </a>
+
+                    <a asp-controller="Contracts"
+                       asp-action="Create"
+                       class="tm-quick-action">
+                        <span class="tm-action-icon tm-icon-purple">▤</span>
+                        <span class="flex-grow-1">
+                            <strong>Create a Contract</strong>
+                            <small>Set up a client agreement</small>
+                        </span>
+                        <span class="tm-action-arrow">&rarr;</span>
+                    </a>
+
+                    <a asp-controller="ServiceRequests"
+                       asp-action="Index"
+                       class="tm-quick-action">
+                        <span class="tm-action-icon tm-icon-orange">↗</span>
+                        <span class="flex-grow-1">
+                            <strong>Service Requests</strong>
+                            <small>Review logistics requests</small>
+                        </span>
+                        <span class="tm-action-arrow">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

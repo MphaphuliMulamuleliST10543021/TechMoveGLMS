@@ -1,0 +1,23 @@
+# .NET build outputs
+**/bin/
+**/obj/
+
+# User-specific IDE settings
+*.user
+*.suo
+.vs/
+.idea/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+**/secrets.json
+appsettings.Local.json
+appsettings.Development.Local.json
+
+# Local uploaded contract PDFs
+TechMoveGLMS.Web/App_Data/ContractPdfs/
+
+# macOS
+.DS_Store

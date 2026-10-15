@@ -1,0 +1,115 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#142b45" />
+
+    <title>@ViewData["Title"] - TechMove Logistics</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+    <link rel="stylesheet"
+          href="~/TechMoveGLMS.Web.styles.css"
+          asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg tm-navbar">
+            <div class="container">
+                <a class="navbar-brand tm-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <span class="tm-brand-icon">TM</span>
+                    <span>
+                        <strong>TechMove</strong>
+                        <small>LOGISTICS MANAGEMENT</small>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler tm-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Clients"
+                               asp-action="Index">
+                                Clients
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Contracts"
+                               asp-action="Index">
+                                Contracts
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="ServiceRequests"
+                               asp-action="Index">
+                                Service Requests
+                            </a>
+                        </li>
+
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <a class="btn tm-nav-button"
+                               asp-controller="Clients"
+                               asp-action="Create">
+                                + Add Client
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="tm-main">
+        <div class="container py-4 py-lg-5">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="tm-footer">
+        <div class="container d-flex flex-column
+                    flex-md-row justify-content-between gap-2">
+            <span>
+                &copy; @DateTime.Now.Year TechMove Logistics
+            </span>
+            <span>Global Logistics Management System</span>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,138 @@
+
+@model TechMoveGLMS.Web.Models.Client
+
+@{
+    ViewData["Title"] = "Client Details";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="small">&larr; Back to Clients</a>
+    <div class="text-uppercase text-success fw-bold small mt-3 mb-2">
+        Client profile
+    </div>
+    <h1>@Model.Name</h1>
+    <p class="text-muted mb-0">Client reference #@Model.Id</p>
+</div>
+
+@if (TempData["SuccessMessage"] is string success)
+{
+    <div class="alert alert-success" role="alert">@success</div>
+}
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="mb-4">Contact Information</h2>
+
+                <div class="mb-3">
+                    <div class="text-muted small">Full Name</div>
+                    <div class="fw-semibold">@Model.Name</div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="text-muted small">Email Address</div>
+                    <a href="mailto:@Model.Email">@Model.Email</a>
+                </div>
+
+                <div class="mb-3">
+                    <div class="text-muted small">Contact Number</div>
+                    <a href="tel:@Model.ContactNumber">@Model.ContactNumber</a>
+                </div>
+
+                <div class="mb-4">
+                    <div class="text-muted small">Region</div>
+                    <div class="fw-semibold">@Model.Region</div>
+                </div>
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-primary">Edit Client</a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-outline-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                    <div>
+                        <h2 class="mb-1">Associated Contracts</h2>
+                        <p class="text-muted small mb-0">
+                            Agreements registered for this client.
+                        </p>
+                    </div>
+                    <span class="badge bg-secondary">
+                        @Model.Contracts.Count() total
+                    </span>
+                </div>
+
+                @if (!Model.Contracts.Any())
+                {
+                    <div class="text-center py-4">
+                        <p class="text-muted">
+                            No contracts are linked to this client yet.
+                        </p>
+                        <a asp-controller="Contracts"
+                           asp-action="Create"
+                           class="btn btn-primary">Create Contract</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Contract</th>
+                                    <th>Service Level</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var contract in Model.Contracts.OrderByDescending(c => c.StartDate))
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Contracts"
+                                           asp-action="Index">
+                                            #@contract.Id
+                                        </a>
+                                        <div class="text-muted small">
+                                            @contract.StartDate.ToString("dd MMM yyyy")
+                                            –
+                                            @contract.EndDate.ToString("dd MMM yyyy")
+                                        </div>
+                                    </td>
+                                    <td>@contract.ServiceLevel</td>
+                                    <td>
+                                        @switch (contract.Status)
+                                        {
+                                            case "Active":
+                                                <span class="badge bg-success">Active</span>
+                                                break;
+                                            case "Expired":
+                                                <span class="badge bg-danger">Expired</span>
+                                                break;
+                                            case "On Hold":
+                                                <span class="badge bg-warning text-dark">On Hold</span>
+                                                break;
+                                            default:
+                                                <span class="badge bg-secondary">@contract.Status</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

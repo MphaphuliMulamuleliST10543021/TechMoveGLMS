@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TechMoveGLMS.Tests/TechMoveGLMS.Tests.csproj" />
+  <Project Path="TechMoveGLMS.Web/TechMoveGLMS.Web.csproj" />
+</Solution>
