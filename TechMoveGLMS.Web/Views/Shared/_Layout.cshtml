@@ -43,47 +43,49 @@
 
                 <div class="collapse navbar-collapse"
                      id="mainNavigation">
-                    <ul class="navbar-nav ms-auto align-items-lg-center">
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="Home"
-                               asp-action="Index">
-                                Dashboard
-                            </a>
-                        </li>
+                    
+<ul class="navbar-nav ms-auto align-items-lg-center">
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")"
+           asp-controller="Home"
+           asp-action="Index">
+            Dashboard
+        </a>
+    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="Clients"
-                               asp-action="Index">
-                                Clients
-                            </a>
-                        </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Clients" ? "active" : "")"
+           asp-controller="Clients"
+           asp-action="Index">
+            Clients
+        </a>
+    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="Contracts"
-                               asp-action="Index">
-                                Contracts
-                            </a>
-                        </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contracts" ? "active" : "")"
+           asp-controller="Contracts"
+           asp-action="Index">
+            Contracts
+        </a>
+    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="ServiceRequests"
-                               asp-action="Index">
-                                Service Requests
-                            </a>
-                        </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "ServiceRequests" ? "active" : "")"
+           asp-controller="ServiceRequests"
+           asp-action="Index">
+            Service Requests
+        </a>
+    </li>
 
-                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                            <a class="btn tm-nav-button"
-                               asp-controller="Clients"
-                               asp-action="Create">
-                                + Add Client
-                            </a>
-                        </li>
-                    </ul>
+    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+        <a class="btn tm-nav-button"
+           asp-controller="Clients"
+           asp-action="Create">
+            + Add Client
+        </a>
+    </li>
+</ul>
+
                 </div>
             </div>
         </nav>
